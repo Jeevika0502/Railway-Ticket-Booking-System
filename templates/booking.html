@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Booking | RailWay</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="passenger-page">
+
+    <nav class="navbar">
+        <a href="/" class="logo">🚆 RailWay<span>.</span></a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            {% if session.get('user_id') %}
+                <a href="/my-bookings">My Bookings</a>
+                <a href="/logout" class="signup">Logout →</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="passenger-wrapper">
+
+        <div class="passenger-heading">
+            <span>COMPLETE YOUR JOURNEY</span>
+            <h1>Passenger Details</h1>
+            <p>Enter your details to save your train booking.</p>
+        </div>
+
+        <div class="passenger-layout">
+
+            <section class="train-summary">
+                <div class="train-summary-top">
+                    <span>SELECTED TRAIN</span>
+                    <span class="train-icon">🚆</span>
+                </div>
+
+                <h2>{{ train.name }}</h2>
+
+                <p class="train-code">
+                    TRAIN NUMBER: {{ train.number }}
+                </p>
+
+                <div class="journey-route">
+                    <div>
+                        <small>FROM</small>
+                        <h3>{{ train["from"] }}</h3>
+                        <strong>{{ train.departure }}</strong>
+                    </div>
+
+                    <span class="route-arrow">→</span>
+
+                    <div>
+                        <small>TO</small>
+                        <h3>{{ train["to"] }}</h3>
+                        <strong>{{ train.arrival }}</strong>
+                    </div>
+                </div>
+
+                <div class="fare-summary">
+                    <span>Ticket Fare</span>
+                    <strong>₹{{ train.fare }}</strong>
+                </div>
+
+                <p class="demo-note">
+                    This is an academic demonstration booking.
+                    No real ticket or payment will be generated.
+                </p>
+            </section>
+
+            <section class="passenger-form-card">
+
+                <span class="form-subtitle">PASSENGER INFORMATION</span>
+                <h2>Enter Your Details</h2>
+                <p class="passenger-description">
+                    Please provide accurate passenger information.
+                </p>
+
+                <form action="{{ url_for('save_booking') }}" method="POST">
+
+                    <input type="hidden" name="train_number"
+                           value="{{ train.number }}">
+
+                    <input type="hidden" name="train_name"
+                           value="{{ train.name }}">
+
+                    <div class="passenger-field">
+                        <label>Passenger Name</label>
+                        <input type="text" name="passenger_name"
+                               placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="passenger-field">
+                        <label>Age</label>
+                        <input type="number" name="age"
+                               placeholder="Enter age"
+                               min="1" max="120" required>
+                    </div>
+
+                    <div class="passenger-field">
+                        <label>Gender</label>
+                        <select name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="passenger-field">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone"
+                               placeholder="Enter phone number"
+                               pattern="[0-9]{10}"
+                               maxlength="10" required>
+                    </div>
+
+                    <button type="submit" class="passenger-submit">
+                        Continue Booking →
+                    </button>
+
+                </form>
+
+                <a href="/" class="passenger-back">← Back to Home</a>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="auth-footer">
+        © 2026 RailWay. Academic Project Demo.
+    </footer>
+
+</body>
+</html>
