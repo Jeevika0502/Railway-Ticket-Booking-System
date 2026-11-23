@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailWay | Smart Train Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">🚆 RailWay<span>.</span></a>
+
+    <div class="nav-links">
+        <a href="/" class="active">Home</a>
+
+        {% if session.get('user_id') %}
+            <a href="/my-bookings">My Bookings</a>
+            <a href="#" style="color:#079bb9;">
+                Welcome, {{ session.get('user_name') }}!
+            </a>
+            <a href="/logout" class="signup">Logout →</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register" class="signup">Get Started →</a>
+        {% endif %}
+    </div>
+</nav>
+
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <div class="hero-tag">✦ SMARTER TRAVEL STARTS HERE</div>
+
+        <h1>Your Journey.<br>
+            Your <span>Destination.</span>
+        </h1>
+
+        <p>
+            Discover beautiful destinations and experience
+            a simpler way to plan your train journey.
+        </p>
+
+        <a href="#booking" class="explore-btn">
+            Book Your Journey ↓
+        </a>
+    </div>
+
+    <div class="hero-bottom">
+        <span>EXPLORE INDIA BY RAIL</span>
+        <span>COMFORT · CONVENIENCE · JOURNEY</span>
+    </div>
+</section>
+
+<section class="booking-area" id="booking">
+
+    <div class="section-heading">
+        <span>PLAN YOUR NEXT TRIP</span>
+        <h2>Where would you like to go?</h2>
+        <p>Search your train and start your journey.</p>
+    </div>
+
+    <form action="/search" method="POST" class="booking-form">
+
+        <div class="field">
+            <label>FROM</label>
+            <div class="field-input">
+                <span>📍</span>
+                <input type="text" name="from"
+                    placeholder="Departure city" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>TO</label>
+            <div class="field-input">
+                <span>📍</span>
+                <input type="text" name="to"
+                    placeholder="Destination city" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>JOURNEY DATE</label>
+            <div class="field-input">
+                <span>📅</span>
+                <input type="date" name="journey_date" required>
+            </div>
+        </div>
+
+        <button type="submit">Search Trains →</button>
+
+    </form>
+</section>
+
+<section class="destinations">
+    <div class="section-heading">
+        <span>POPULAR JOURNEYS</span>
+        <h2>Explore Your Destinations</h2>
+        <p>Discover some of the routes available in our demo.</p>
+    </div>
+
+    <div class="destination-grid">
+
+        <div class="destination-card">
+            <div class="destination-image chennai"></div>
+            <div class="destination-info">
+                <span>POPULAR ROUTE</span>
+                <h3>Chennai → Tirunelveli</h3>
+                <p>Explore southern Tamil Nadu.</p>
+            </div>
+        </div>
+
+        <div class="destination-card">
+            <div class="destination-image trichy"></div>
+            <div class="destination-info">
+                <span>POPULAR ROUTE</span>
+                <h3>Chennai → Trichy</h3>
+                <p>Plan your next city journey.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="benefits">
+    <div>
+        <span>01</span>
+        <h3>Easy Search</h3>
+        <p>Find trains using your journey details.</p>
+    </div>
+
+    <div>
+        <span>02</span>
+        <h3>Simple Booking</h3>
+        <p>Submit passenger details easily.</p>
+    </div>
+
+    <div>
+        <span>03</span>
+        <h3>Manage Trips</h3>
+        <p>View and manage saved bookings.</p>
+    </div>
+</section>
+
+<footer>
+    <a href="/" class="footer-logo">🚆 RailWay.</a>
+    <p>Making every journey simpler.</p>
+    <p>Developed by Jeevika S | CSE</p>
+    <small>Academic demonstration project. Not connected to IRCTC.</small>
+</footer>
+
+</body>
+</html>
