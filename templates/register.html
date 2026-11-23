@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | RailWay</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page">
+
+    <nav class="auth-navbar">
+        <a href="/" class="auth-logo">Rail<span>Way.</span></a>
+        <a href="/" class="back-home">← Back to Home</a>
+    </nav>
+
+    <main class="auth-wrapper">
+
+        <section class="auth-visual">
+            <div class="auth-visual-content">
+                <span class="auth-tag">WELCOME ABOARD</span>
+
+                <h1>Your Journey<br>Starts <span>Here.</span></h1>
+
+                <p>Create your RailWay account and explore a simple way to search trains and manage your bookings.</p>
+
+                <div class="auth-highlight">
+                    <span>🚆</span>
+                    <div>
+                        <strong>Travel Made Simple</strong>
+                        <small>Your journey, your destination.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-form-section">
+            <div class="auth-card">
+
+                <div class="auth-icon">✦</div>
+
+                <span class="form-subtitle">JOIN RAILWAY</span>
+                <h2>Create Account</h2>
+                <p class="form-description">Enter your details to get started.</p>
+
+                <form method="POST" action="/register">
+
+                    <div class="auth-input-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name"
+                               placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="auth-input-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email"
+                               placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="auth-input-group">
+                        <label>Password</label>
+                        <div class="password-field">
+                            <input type="password" name="password"
+                                   id="registerPassword"
+                                   placeholder="Create a password" required>
+                            <button type="button" class="show-password"
+                                onclick="toggleRegisterPassword()">Show</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Create My Account →
+                    </button>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>ALREADY REGISTERED?</span>
+                </div>
+
+                <p class="register-text">
+                    Already have an account?
+                    <a href="/login">Login here</a>
+                </p>
+
+                <a href="/" class="auth-home-link">← Return to Homepage</a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="auth-footer">
+        © 2026 RailWay. Academic Project Demo.
+    </footer>
+
+    <script>
+        function toggleRegisterPassword() {
+            const password = document.getElementById("registerPassword");
+            const button = document.querySelector(".show-password");
+
+            if (password.type === "password") {
+                password.type = "text";
+                button.textContent = "Hide";
+            } else {
+                password.type = "password";
+                button.textContent = "Show";
+            }
+        }
+    </script>
+
+</body>
+</html>
