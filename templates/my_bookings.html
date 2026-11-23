@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings | RailWay</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="my-bookings-page">
+
+    <nav class="navbar">
+        <a href="/" class="logo">🚆 RailWay<span>.</span></a>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/my-bookings" class="active">My Bookings</a>
+
+            {% if session.get('user_id') %}
+                <a href="#" style="color:#079bb9;">
+                    Welcome, {{ session.get('user_name') }}!
+                </a>
+                <a href="/logout" class="signup">Logout →</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <section class="booking-history">
+
+        <div class="history-heading">
+            <span>YOUR TRAVEL DETAILS</span>
+            <h1>My Bookings</h1>
+            <p>View and manage your saved passenger bookings.</p>
+        </div>
+
+        {% if bookings %}
+
+            <div class="booking-count">
+                <span>🚆</span>
+                <div>
+                    <strong>{{ bookings|length }} Booking(s)</strong>
+                    <small>Your booking records</small>
+                </div>
+            </div>
+
+            <div class="history-grid">
+
+                {% for booking in bookings %}
+
+                    <div class="history-card">
+
+                        <div class="history-card-header">
+                            <div>
+                                <span class="ticket-label">TRAIN BOOKING</span>
+                                <h2>{{ booking['train_name'] }}</h2>
+                            </div>
+                            <span class="booking-status">Saved</span>
+                        </div>
+
+                        <div class="train-number">
+                            TRAIN NUMBER: {{ booking['train_number'] }}
+                        </div>
+
+                        <div class="history-divider"></div>
+
+                        <div class="passenger-details">
+                            <div>
+                                <small>PASSENGER NAME</small>
+                                <strong>{{ booking['passenger_name'] }}</strong>
+                            </div>
+
+                            <div>
+                                <small>AGE</small>
+                                <strong>{{ booking['age'] }}</strong>
+                            </div>
+
+                            <div>
+                                <small>GENDER</small>
+                                <strong>{{ booking['gender'] }}</strong>
+                            </div>
+
+                            <div>
+                                <small>PHONE NUMBER</small>
+                                <strong>{{ booking['phone'] }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="history-card-footer">
+                            <span>Booking ID: #{{ booking['id'] }}</span>
+
+                            <a href="{{ url_for('cancel_booking', booking_id=booking['id']) }}"
+                               class="cancel-booking"
+                               onclick="return confirm('Are you sure you want to cancel this booking?')">
+                                Cancel Booking
+                            </a>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-bookings">
+                <div class="empty-icon">🎫</div>
+                <h2>No Bookings Yet</h2>
+                <p>Your saved bookings will appear here after you complete a booking.</p>
+                <a href="/" class="history-home-btn">Explore Trains →</a>
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    <footer class="auth-footer">
+        © 2026 RailWay. Academic Project Demo.
+    </footer>
+
+</body>
+</html>
